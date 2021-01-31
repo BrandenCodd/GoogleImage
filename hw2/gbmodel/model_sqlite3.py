@@ -10,7 +10,7 @@ data is stored in a SQLite database that looks something like the following:
 
 This can be created with the following SQL (see bottom of this file):
 
-    create table infobook (name text, description text, streetAddress text, typesOfService text, phoneNumber number, 
+    create table service_info (name text, description text, streetAddress text, typesOfService text, phoneNumber number, 
     hoursOfOperation text, reviews text);
 
 """
@@ -25,9 +25,9 @@ class model(Model):
         connection = sqlite3.connect(DB_FILE)
         cursor = connection.cursor()
         try:
-            cursor.execute("select count(rowid) from infobook")
+            cursor.execute("select count(rowid) from service_info")
         except sqlite3.OperationalError:
-            cursor.execute("create table infobook (name text, email text, signed_on date, message)")
+            cursor.execute("create table service_info (name text, description text, streetAddress text, typesOfService text, phoneNumber number, hoursOfOperation text, reviews text)")
         cursor.close()
 
     def select(self):
@@ -38,10 +38,10 @@ class model(Model):
         """
         connection = sqlite3.connect(DB_FILE)
         cursor = connection.cursor()
-        cursor.execute("SELECT * FROM infobook")
+        cursor.execute("SELECT * FROM service_info")
         return cursor.fetchall()
 
-    def insert(self, name, description, streetAdress, typesOfService, phoneNumber, hoursOfOperation, reviews):
+    def insert(self, name, description, streetAddress, typesOfService, phoneNumber, hoursOfOperation, reviews):
         """
         Inserts entry into database
         :param name: String
@@ -54,12 +54,12 @@ class model(Model):
         :return: True
         :raises: Database errors on connection and insertion
         """
-        params = {'name':name, 'description':description, 'streetAdress':streetAdress, 'typesOfServices':typesOfService, 
+        params = {'name':name, 'description':description, 'streetAddress':streetAddress, 'typesOfService':typesOfService, 
                 'phoneNumber':phoneNumber, 'hoursOfOperation':hoursOfOperation, 'reviews':reviews}
         connection = sqlite3.connect(DB_FILE)
         cursor = connection.cursor()
-        cursor.execute("insert into socialbook (name, description, streetAdress, typesOfService, phoneNumber, hoursOfOperation, reviews, email) \
-        VALUES (:name, :description, :streetAdress, :typesOfService, :phoneNumber, :hoursOfOperation, :reviews)", params)
+        cursor.execute("insert into service_info (name, description, streetAddress, typesOfService, phoneNumber, hoursOfOperation, reviews) \
+        VALUES (:name, :description, :streetAddress, :typesOfService, :phoneNumber, :hoursOfOperation, :reviews)", params)
 
         connection.commit()
         cursor.close()
