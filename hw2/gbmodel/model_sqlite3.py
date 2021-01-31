@@ -2,15 +2,15 @@
 A flask app that lists various charities and social services in Portland.
 data is stored in a SQLite database that looks something like the following:
 
-+------------+------------------+------------+----------------+
-| Name       | Email            | signed_on  | message        |
-+============+==================+============+----------------+
-| John Doe   | jdoe@example.com | 2012-05-28 | Hello world    |
-+------------+------------------+------------+----------------+
++--------------+------------------+-------------------+----------------+---------------+------------------+-----------------
+| Name         | description      | streetAddress     | typesOfService |  phoneNumber  | hoursOfOperation | reviews        |
++==============+==================+===================+----------------+---------------+------------------+-----------------
+| Soup Kitchen | provides meals   | 124 NW 7th street | charity        |  541-240-4214 | 10 am - 6 pm     | very good soup |
++--------------+------------------+-------------------+----------------+---------------+------------------+-----------------
 
 This can be created with the following SQL (see bottom of this file):
 
-    create table service_info (name text, description text, streetAddress text, typesOfService text, phoneNumber number, 
+    create table service_info (name text, description text, streetAddress text, typesOfService text, phoneNumber text, 
     hoursOfOperation text, reviews text);
 
 """
