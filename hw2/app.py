@@ -1,5 +1,5 @@
 """
-A simple guestbook flask app.
+A flask app for listing charities and social services in portland.
 """
 import flask
 from flask.views import MethodView
@@ -17,4 +17,4 @@ app.add_url_rule('/sign/',
                  methods=['GET', 'POST'])
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
