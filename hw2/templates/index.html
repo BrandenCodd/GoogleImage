@@ -6,13 +6,13 @@
     <h3>Previous Entries</h3>
     {% for entry in entries %}
         <p class=entry>
-        <br>{{ entry.name }}<br>
-        <br>{{ entry.description }}<br>
-        <br>{{ entry.streetAddress}}<br>
-        <br>{{ entry.typesOfService }}<br>
-        <br>{{ entry.phoneNumber}}<br>
-        <br>{{ entry.hoursOfOperation }}<br>
-	    <br>{{ entry.reviews }}<br>
+        <br>Name: {{ entry.name }}<br>
+        <br>Description: {{ entry.description }}<br>
+        <br>Street Address: {{ entry.streetAddress}}<br>
+        <br>Type Of Service: {{ entry.typesOfService }}<br>
+        <br>Phone Number: {{ entry.phoneNumber}}<br>
+        <br>Hours Of Operation: {{ entry.hoursOfOperation }}<br>
+	    <br>Reviews: {{ entry.reviews }}<br>
         </p>
     {% endfor %}
 
