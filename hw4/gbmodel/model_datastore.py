@@ -43,7 +43,8 @@ class model(Model):
         entities = [x for x in entities if x != None]
         return entities
 
-    def insert(self,name,email,message):
+    def insert(self,name,description,streetAddress,typesOfService,phoneNumber,
+hoursOfOperation,reviews):
         key = self.client.key('hw4')
         rev = datastore.Entity(key)
         rev.update( {
