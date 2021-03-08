@@ -12,6 +12,6 @@ class Info(MethodView):
         Redirect to index when completed.
         """
         model = gbmodel.get_model()
-        model.insert(request.form['image'], request.form['image_info'])
+        model.insert(request.form['image_url'])
         return redirect(url_for('index'))
 
