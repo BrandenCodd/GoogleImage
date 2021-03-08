@@ -24,13 +24,14 @@ def from_datastore(entity):
         [Entity{key: (kind, id), prop: val, ...}]
 
     This returns:
-        
+        [ name, description, streetAddress, typesOfService, phoneNumber, hoursOfOperation, review ]
+    where name, description, streetAddress, typesOfService, phoneNumber, hoursOfOperation, review are Python strings
     """
     if not entity:
         return None
     if isinstance(entity, list):
         entity = entity.pop()
-    return [entity['image']]
+    return [entity['image'],entity['image information']]
 
 class model(Model):
     def __init__(self):
@@ -42,11 +43,12 @@ class model(Model):
         entities = [x for x in entities if x != None]
         return entities
 
-    def insert(self,image):
+    def insert(self,image,image_info):
         key = self.client.key('final')
         rev = datastore.Entity(key)
         rev.update( {
-            'image': image
+            'image': image,
+            'image information': image_info
             })
         self.client.put(rev)
         return True
