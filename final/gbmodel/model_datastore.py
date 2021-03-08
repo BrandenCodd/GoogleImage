@@ -31,30 +31,24 @@ def from_datastore(entity):
         return None
     if isinstance(entity, list):
         entity = entity.pop()
-    return [entity['name'],entity['description'],entity['streetAddress'],entity['typesOfService'], entity['phoneNumber'], entity['hoursOfOperation'],entity['reviews']]
+    return [entity['image'],entity['image information']]
 
 class model(Model):
     def __init__(self):
         self.client = datastore.Client('cs356-w21-branden-codd')
 
     def select(self):
-        query = self.client.query(kind = 'hw4')
+        query = self.client.query(kind = 'final')
         entities = list(map(from_datastore,query.fetch()))
         entities = [x for x in entities if x != None]
         return entities
 
-    def insert(self,name,description,streetAddress,typesOfService,phoneNumber,
-hoursOfOperation,reviews):
-        key = self.client.key('hw4')
+    def insert(self,image,image_info):
+        key = self.client.key('final')
         rev = datastore.Entity(key)
         rev.update( {
-            'name': name,
-            'description': description,
-            'streetAddress' : streetAddress,
-            'typesOfService' : typesOfService,
-            'phoneNumber' : phoneNumber,
-            'hoursOfOperation' : hoursOfOperation,
-            'reviews' : reviews
+            'image': image,
+            'image information': image_info
             })
         self.client.put(rev)
         return True
