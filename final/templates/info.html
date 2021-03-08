@@ -1,15 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h2>Enter information about social service</h2>
+    <h2>Upload an image of an animal</h2>
     <form action="{{ url_for('info') }}" method=post>
-    <p class="heading">Name: <input type=text name=name>
-    <p class="heading">Description: <input type=text name=description>
-    <p class="heading">Street Address: <input type=text name=streetAddress>
-    <p class="heading">Type of Service: <input type=text name=typesOfService>
-    <p class="heading">Phone Number: <input type=text name=phoneNumber>
-    <p class="heading">Hours Of Operation: <input type=text name=hoursOfOperation>
-	<p class="heading">Reviews: <input type=text name=reviews>
-  
+    <p class="heading">Image: <input type=text name=image>
+     
 	<p><input type=submit value=Submit></p>
     </form>
 {% endblock %}

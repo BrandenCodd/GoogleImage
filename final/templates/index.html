@@ -6,14 +6,9 @@
     <h3>Previous Entries</h3>
     {% for entry in entries %}
         <p class=entry>
-        <br>Name: {{ entry.name }}<br>
-        <br>Description: {{ entry.description }}<br>
-        <br>Street Address: {{ entry.streetAddress}}<br>
-        <br>Type Of Service: {{ entry.typesOfService }}<br>
-        <br>Phone Number: {{ entry.phoneNumber}}<br>
-        <br>Hours Of Operation: {{ entry.hoursOfOperation }}<br>
-	    <br>Reviews: {{ entry.reviews }}<br>
-        </p>
+        <br>Image: {{ entry.image }}<br>
+        <br>Image Information: {{ entry.image_info }}<br>
+               </p>
     {% endfor %}
 
 {% endblock %}
