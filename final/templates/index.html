@@ -1,12 +1,14 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h2>Service Information</h2>
+    <h2>Image information</h2>
 
     <h3>enter info <a href="{{ url_for('info') }}">here</a></h3>
     <h3>Previous Entries</h3>
     {% for entry in entries %}
         <p class=entry>
         <br>image_url: {{ entry.image_url }}<br>
+        <br>image: <img src="{{ entry.image_url }}" alt="dog" width="500" height="600"><br>
+
                </p>
     {% endfor %}
 
