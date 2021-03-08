@@ -1,9 +1,0 @@
-{% extends "layout.html" %}
-{% block content %}
-    <h2>Upload an image of an animal</h2>
-    <form action="{{ url_for('info') }}" method=post>
-    <p class="heading">Image: <input type=text name=image>
-     
-	<p><input type=submit value=Submit></p>
-    </form>
-{% endblock %}
