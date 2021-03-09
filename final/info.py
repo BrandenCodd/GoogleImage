@@ -12,5 +12,5 @@ class Info(MethodView):
         Redirect to index when completed.
         """
         model = gbmodel.get_model()
-        model.insert(request.form['name'], request.form['description'], request.form['streetAddress'],request.form['typesOfService'], request.form['phoneNumber'],request.form['hoursOfOperation'],request.form['reviews'])
+        model.insert(request.form['description']]
         return redirect(url_for('index'))
