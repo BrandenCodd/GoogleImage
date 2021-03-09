@@ -89,11 +89,13 @@ def upload_photo():
     current_datetime = datetime.now()
 
     #iterte over our datafram to add descriptions and score
+    #only show values over .85
     img = []
     score = []
     for index, row in df.iterrows():
-        img.append(row['description'])
-        score.append(row['score'])
+        if row['score'] >= .85:
+            img.append(row['description'])
+            score.append(row['score'])
   
 
     # The kind for the new entity.
