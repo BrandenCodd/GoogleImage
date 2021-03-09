@@ -84,6 +84,13 @@ def upload_photo():
     # Create a Cloud Datastore client.
     datastore_client = datastore.Client()
 
+    #iterte over our datafram to add descriptions and score
+    img = []
+    score = []
+    for index, row in df.iterrows():
+        img.append(row['description'])
+        score.append(row['score'])
+
     # Fetch the current date / time.
     current_datetime = datetime.now()
 
