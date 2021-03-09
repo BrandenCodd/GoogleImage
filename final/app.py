@@ -70,7 +70,16 @@ def upload_photo():
     image_info = vision_client.label_detection(image=image)
     image_desc = image_info.label_annotations
 
-    
+    #use pandas package to parse
+    df = pd.DataFrame(columns=['description', 'score'])
+    for desc in image_desc:
+        df = df.append(
+            dict(
+                description=desc.description,
+                score=desc.score
+            ),
+            ignore_index=True
+        )
 
     # Create a Cloud Datastore client.
     datastore_client = datastore.Client()
