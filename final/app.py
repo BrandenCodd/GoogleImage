@@ -21,7 +21,7 @@ from flask import Flask, redirect, render_template, request
 
 from google.cloud import datastore
 from google.cloud import storage
-from google.cloud import vision
+from google.cloud import vision_v1
 
 
 CLOUD_STORAGE_BUCKET = os.environ.get("CLOUD_STORAGE_BUCKET")
@@ -62,14 +62,14 @@ def upload_photo():
     blob.make_public()
 
     # Create a Cloud Vision client.
-    vision_client = vision.ImageAnnotatorClient()
+    vision_client = vision_v1.ImageAnnotatorClient()
 
-   # Use the Cloud Vision client to detect label annotations for our image.
+    # Use the Cloud Vision client to detect label annotations for our image.
     source_uri = "gs://{}/{}".format(CLOUD_STORAGE_BUCKET, blob.name)
     image = vision_v1.Image(source=vision_v1.ImageSource(gcs_image_uri=source_uri))
     image_info = vision_client.label_detection(image=image)
     image_desc = image_info.label_annotations
-
+    
     #use pandas package to parse
     df = pd.DataFrame(columns=['description', 'score'])
     for desc in image_desc:
@@ -80,9 +80,13 @@ def upload_photo():
             ),
             ignore_index=True
         )
-
+    # If an image is detected, save to datastore the description of image
+     
     # Create a Cloud Datastore client.
     datastore_client = datastore.Client()
+
+    # Fetch the current date / time.
+    current_datetime = datetime.now()
 
     #iterte over our datafram to add descriptions and score
     img = []
@@ -90,9 +94,7 @@ def upload_photo():
     for index, row in df.iterrows():
         img.append(row['description'])
         score.append(row['score'])
-
-    # Fetch the current date / time.
-    current_datetime = datetime.now()
+  
 
     # The kind for the new entity.
     kind = "final"
@@ -109,7 +111,8 @@ def upload_photo():
     entity["blob_name"] = blob.name
     entity["image_public_url"] = blob.public_url
     entity["timestamp"] = current_datetime
-    entity["joy"] = face_joy
+    entity["image_description"] = img
+    entity["image_score"] = score
 
     # Save the new entity to Datastore.
     datastore_client.put(entity)
@@ -135,4 +138,4 @@ def server_error(e):
 if __name__ == "__main__":
     # This is used when running locally. Gunicorn is used to run the
     # application on Google App Engine. See entrypoint in app.yaml.
-    app.run(host="127.0.0.1", port=8080, debug=True)
+    app.run(host="127.0.0.1", port=5000, debug=True)
