@@ -1,5 +1,5 @@
 """
-A flask app for listing charities and social services in portland.
+A flask app for listing animal images and information about them.
 """
 import flask
 from flask.views import MethodView
