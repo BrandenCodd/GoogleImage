@@ -70,23 +70,7 @@ def upload_photo():
     image_info = vision_client.label_detection(image=image)
     image_desc = image_info.label_annotations
 
-    # If a face is detected, save to Datastore the likelihood that the face
-    # displays 'joy,' as determined by Google's Machine Learning algorithm.
-    if len(faces) > 0:
-        face = faces[0]
-
-        # Convert the likelihood string.
-        likelihoods = [
-            "Unknown",
-            "Very Unlikely",
-            "Unlikely",
-            "Possible",
-            "Likely",
-            "Very Likely",
-        ]
-        face_joy = likelihoods[face.joy_likelihood]
-    else:
-        face_joy = "Unknown"
+    
 
     # Create a Cloud Datastore client.
     datastore_client = datastore.Client()
