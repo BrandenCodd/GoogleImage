@@ -15,6 +15,7 @@
 from datetime import datetime
 import logging
 import os
+import pandas as pd
 
 from flask import Flask, redirect, render_template, request
 
@@ -63,10 +64,11 @@ def upload_photo():
     # Create a Cloud Vision client.
     vision_client = vision.ImageAnnotatorClient()
 
-    # Use the Cloud Vision client to detect a face for our image.
+   # Use the Cloud Vision client to detect label annotations for our image.
     source_uri = "gs://{}/{}".format(CLOUD_STORAGE_BUCKET, blob.name)
-    image = vision.Image(source=vision.ImageSource(gcs_image_uri=source_uri))
-    faces = vision_client.face_detection(image=image).face_annotations
+    image = vision_v1.Image(source=vision_v1.ImageSource(gcs_image_uri=source_uri))
+    image_info = vision_client.label_detection(image=image)
+    image_desc = image_info.label_annotations
 
     # If a face is detected, save to Datastore the likelihood that the face
     # displays 'joy,' as determined by Google's Machine Learning algorithm.
