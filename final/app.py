@@ -23,10 +23,8 @@ from google.cloud import datastore
 from google.cloud import storage
 from google.cloud import vision_v1
 
-#need to set bucket and account creditionals
+#need to set account creditionals
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/home/coddb/cs356-w21-branden-codd-940428984/final/coddb-final.json"
-
-#CLOUD_STORAGE_BUCKET = os.environ.get("CLOUD_STORAGE_BUCKET")
 
 
 app = Flask(__name__)
