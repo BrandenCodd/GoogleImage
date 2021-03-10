@@ -23,6 +23,8 @@ from google.cloud import datastore
 from google.cloud import storage
 from google.cloud import vision_v1
 
+#need to set bucket and account creditionals
+os.environ['GOOGLE_APPLICATION_CREDENTIAL'] = r'coddb-final.json'
 
 CLOUD_STORAGE_BUCKET = os.environ.get("CLOUD_STORAGE_BUCKET")
 
