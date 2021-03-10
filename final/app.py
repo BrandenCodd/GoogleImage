@@ -24,9 +24,9 @@ from google.cloud import storage
 from google.cloud import vision_v1
 
 #need to set bucket and account creditionals
-os.environ['GOOGLE_APPLICATION_CREDENTIAL'] = r'coddb-final.json'
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/home/coddb/cs356-w21-branden-codd-940428984/final/coddb-final.json"
 
-CLOUD_STORAGE_BUCKET = os.environ.get("CLOUD_STORAGE_BUCKET")
+#CLOUD_STORAGE_BUCKET = os.environ.get("CLOUD_STORAGE_BUCKET")
 
 
 app = Flask(__name__)
@@ -54,7 +54,7 @@ def upload_photo():
     storage_client = storage.Client()
 
     # Get the bucket that the file will be uploaded to.
-    bucket = storage_client.get_bucket(CLOUD_STORAGE_BUCKET)
+    bucket = storage_client.get_bucket("coddb-final")
 
     # Create a new blob and upload the file's content.
     blob = bucket.blob(photo.filename)
@@ -67,7 +67,7 @@ def upload_photo():
     vision_client = vision_v1.ImageAnnotatorClient()
 
     # Use the Cloud Vision client to detect label annotations for our image.
-    source_uri = "gs://{}/{}".format(CLOUD_STORAGE_BUCKET, blob.name)
+    source_uri = "gs://{}/{}".format("coddb-final", blob.name)
     image = vision_v1.Image(source=vision_v1.ImageSource(gcs_image_uri=source_uri))
     image_info = vision_client.label_detection(image=image)
     image_desc = image_info.label_annotations
