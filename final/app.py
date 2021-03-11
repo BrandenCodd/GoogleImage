@@ -26,21 +26,20 @@ from google.cloud import vision_v1
 
 app = Flask(__name__)
 
-
+#default route
 @app.route("/")
 def homepage():
     # Create a Cloud Datastore client.
     datastore_client = datastore.Client()
 
-    # Use the Cloud Datastore client to fetch information from Datastore about
-    # each photo.
+    # Use the Cloud Datastore client to fetch information from Datastore about each uploaded image
     query = datastore_client.query(kind="final")
     image_entities = list(query.fetch())
 
     # Return a Jinja2 HTML template and pass in image_entities as a parameter.
     return render_template("homepage.html", image_entities=image_entities)
 
-
+#upload images route
 @app.route("/upload_photo", methods=["GET", "POST"])
 def upload_photo():
     photo = request.files["file"]
@@ -64,10 +63,11 @@ def upload_photo():
     # Use the Cloud Vision client to detect label annotations for our image.
     source_uri = "gs://{}/{}".format("coddb-final", blob.name)
     image = vision_v1.Image(source=vision_v1.ImageSource(gcs_image_uri=source_uri))
+    #use the visions api to detect label annotations for the uploaded image
     image_info = vision_client.label_detection(image=image)
     image_desc = image_info.label_annotations
     
-    #use pandas package to parse
+    #use pandas package to parse the returned labels
     df = pd.DataFrame(columns=['description', 'score'])
     for desc in image_desc:
         df = df.append(
@@ -86,7 +86,7 @@ def upload_photo():
     current_datetime = datetime.now()
 
     #iterte over our datafram to add descriptions and score
-    #only show values over .85
+    #only show descriptions with score over .85
     img = []
     score = []
     for index, row in df.iterrows():
