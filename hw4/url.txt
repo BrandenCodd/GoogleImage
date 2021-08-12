@@ -1,2 +1,0 @@
-// this is the URL generated from the gcloud run 
-https://hw4-owbunxskwq-uw.a.run.app/
